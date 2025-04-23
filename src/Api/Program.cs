@@ -1,27 +1,30 @@
-using Microsoft.EntityFrameworkCore;
+using Application.Interfaces;
 using Infrastructure.DbContext;
 using Infrastructure.Repositories;
-using Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// การตั้งค่า SQLite connection string
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=app.db")
-);
-
+// ตั้งค่า SQLite connection string
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=app.db"));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
-
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
+// app.UseHttpsRedirection();
+app.UseMiddleware<LoggingMiddleware>();
 app.UsePathBase("/api");
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1");
+    options.RoutePrefix = "swagger";
+});
 
-// Configure the HTTP request pipeline.
-app.UseHttpsRedirection();
-
+// Default route
 app.MapGet("/", () => "Hello World!");
 
 app.MapControllers();
