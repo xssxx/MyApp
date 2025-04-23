@@ -12,11 +12,11 @@ public class ProductService : IProductService
 
     public Task<List<Product>> GetAllAsync() => _repository.GetAllProductsAsync();
 
-    public Task<Product> GetByIdAsync(string id) => _repository.GetProductByIdAsync(id)!;
+    public Task<Product?> GetByIdAsync(Guid id) => _repository.GetProductByIdAsync(id)!;
 
     public Task AddAsync(Product product) => _repository.AddProductAsync(product);
 
     public Task UpdateAsync(Product product) => _repository.UpdateProductAsync(product);
 
-    public Task DeleteAsync(string id) => _repository.DeleteProductAsync(id);
+    public Task DeleteAsync(Guid id) => _repository.DeleteProductAsync(id);
 }

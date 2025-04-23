@@ -22,13 +22,9 @@ namespace Infrastructure.Repositories
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product?> GetProductByIdAsync(string id)
+        public async Task<Product?> GetProductByIdAsync(Guid id)
         {
-            if (Guid.TryParse(id, out var guidId))
-            {
-                return await _context.Products.FirstOrDefaultAsync(p => p.Id == guidId);
-            }
-            return null;
+            return await _context.Products.FirstOrDefaultAsync(p => p.Id.Equals(id));
         }
 
         public async Task AddProductAsync(Product product)
@@ -43,7 +39,7 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProductAsync(string id)
+        public async Task DeleteProductAsync(Guid id)
         {
             var product = await GetProductByIdAsync(id);
             if (product != null)

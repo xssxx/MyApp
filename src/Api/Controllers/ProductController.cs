@@ -20,7 +20,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> GetById(string id)
+    public async Task<ActionResult<Product>> GetById(Guid id)
     {
         var product = await _service.GetByIdAsync(id);
         if (product == null)
@@ -46,7 +46,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await _service.DeleteAsync(id);
         return NoContent();
