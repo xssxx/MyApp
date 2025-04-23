@@ -10,5 +10,4 @@ namespace Application.Interfaces
         Task UpdateProductAsync(Product product);
         Task DeleteProductAsync(string id);
     }
-    
 }
