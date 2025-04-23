@@ -1,7 +1,7 @@
+using Application.Interfaces;
 using Domain.Entities;
 using Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
-using Application.Interfaces;
 
 namespace Infrastructure.Repositories
 {
@@ -41,12 +41,12 @@ namespace Infrastructure.Repositories
         {
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
-
         }
+
         public async Task DeleteProductAsync(string id)
         {
             var product = await GetProductByIdAsync(id);
-            if (product != null) 
+            if (product != null)
             {
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
