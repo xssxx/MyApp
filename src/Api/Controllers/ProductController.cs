@@ -3,7 +3,7 @@ using Application.Interfaces;
 using Domain.Entities;
 
 [ApiController]
-[Route("[controller]")]
+[Route("products")]
 public class ProductController : ControllerBase
 {
     private readonly IProductService _service;
